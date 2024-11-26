@@ -49,7 +49,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import br.edu.up.rgm34240004.InventoryTopAppBar
 import br.edu.up.rgm34240004.R
-import br.edu.up.rgm34240004.data.Item
+import br.edu.up.rgm34240004.data.ItemEntity
 import br.edu.up.rgm34240004.ui.item.formatedPrice
 import br.edu.up.rgm34240004.ui.navigation.NavigationDestination
 import br.edu.up.rgm34240004.ui.theme.InventoryTheme
@@ -104,7 +104,7 @@ fun HomeScreen(
 
 @Composable
 private fun HomeBody(
-    itemList: List<Item>,
+    itemList: List<ItemEntity>,
     onItemClick: (Int) -> Unit,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp),
@@ -133,8 +133,8 @@ private fun HomeBody(
 
 @Composable
 private fun InventoryList(
-    itemList: List<Item>,
-    onItemClick: (Item) -> Unit,
+    itemList: List<ItemEntity>,
+    onItemClick: (ItemEntity) -> Unit,
     contentPadding: PaddingValues,
     modifier: Modifier = Modifier
 ) {
@@ -153,7 +153,7 @@ private fun InventoryList(
 
 @Composable
 private fun InventoryItem(
-    item: Item, modifier: Modifier = Modifier
+    item: ItemEntity, modifier: Modifier = Modifier
 ) {
     Card(
         modifier = modifier,
@@ -189,7 +189,7 @@ private fun InventoryItem(
 fun HomeBodyPreview() {
     InventoryTheme {
         HomeBody(listOf(
-            Item(1, "Game", 100.0, 20), Item(2, "Pen", 200.0, 30), Item(3, "TV", 300.0, 50)
+            ItemEntity(1, "Game", 100.0, 20), ItemEntity(2, "Pen", 200.0, 30), ItemEntity(3, "TV", 300.0, 50)
         ), onItemClick = {})
     }
 }
@@ -207,7 +207,7 @@ fun HomeBodyEmptyListPreview() {
 fun InventoryItemPreview() {
     InventoryTheme {
         InventoryItem(
-            Item(1, "Game", 100.0, 20),
+            ItemEntity(1, "Game", 100.0, 20),
         )
     }
 }

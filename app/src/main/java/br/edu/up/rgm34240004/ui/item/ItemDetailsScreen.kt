@@ -54,7 +54,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import br.edu.up.rgm34240004.InventoryTopAppBar
 import br.edu.up.rgm34240004.R
-import br.edu.up.rgm34240004.data.Item
+import br.edu.up.rgm34240004.data.ItemEntity
 import br.edu.up.rgm34240004.ui.navigation.NavigationDestination
 import br.edu.up.rgm34240004.ui.theme.InventoryTheme
 
@@ -155,7 +155,7 @@ private fun ItemDetailsBody(
 
 @Composable
 fun ItemDetails(
-    item: Item, modifier: Modifier = Modifier
+    item: ItemEntity, modifier: Modifier = Modifier
 ) {
     Card(
         modifier = modifier,

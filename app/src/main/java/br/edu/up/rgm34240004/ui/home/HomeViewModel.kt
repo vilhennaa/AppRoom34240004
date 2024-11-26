@@ -17,7 +17,7 @@
 package br.edu.up.rgm34240004.ui.home
 
 import androidx.lifecycle.ViewModel
-import br.edu.up.rgm34240004.data.Item
+import br.edu.up.rgm34240004.data.ItemEntity
 
 /**
  * ViewModel to retrieve all items in the Room database.
@@ -31,4 +31,4 @@ class HomeViewModel : ViewModel() {
 /**
  * Ui State for HomeScreen
  */
-data class HomeUiState(val itemList: List<Item> = listOf())
+data class HomeUiState(val itemList: List<ItemEntity> = listOf())

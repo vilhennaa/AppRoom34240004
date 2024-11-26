@@ -20,7 +20,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import br.edu.up.rgm34240004.data.Item
+import br.edu.up.rgm34240004.data.ItemEntity
 import java.text.NumberFormat
 
 /**
@@ -66,33 +66,33 @@ data class ItemDetails(
 )
 
 /**
- * Extension function to convert [ItemDetails] to [Item]. If the value of [ItemDetails.price] is
+ * Extension function to convert [ItemDetails] to [ItemEntity]. If the value of [ItemDetails.price] is
  * not a valid [Double], then the price will be set to 0.0. Similarly if the value of
  * [ItemDetails.quantity] is not a valid [Int], then the quantity will be set to 0
  */
-fun ItemDetails.toItem(): Item = Item(
+fun ItemDetails.toItem(): ItemEntity = ItemEntity(
     id = id,
     name = name,
     price = price.toDoubleOrNull() ?: 0.0,
     quantity = quantity.toIntOrNull() ?: 0
 )
 
-fun Item.formatedPrice(): String {
+fun ItemEntity.formatedPrice(): String {
     return NumberFormat.getCurrencyInstance().format(price)
 }
 
 /**
- * Extension function to convert [Item] to [ItemUiState]
+ * Extension function to convert [ItemEntity] to [ItemUiState]
  */
-fun Item.toItemUiState(isEntryValid: Boolean = false): ItemUiState = ItemUiState(
+fun ItemEntity.toItemUiState(isEntryValid: Boolean = false): ItemUiState = ItemUiState(
     itemDetails = this.toItemDetails(),
     isEntryValid = isEntryValid
 )
 
 /**
- * Extension function to convert [Item] to [ItemDetails]
+ * Extension function to convert [ItemEntity] to [ItemDetails]
  */
-fun Item.toItemDetails(): ItemDetails = ItemDetails(
+fun ItemEntity.toItemDetails(): ItemDetails = ItemDetails(
     id = id,
     name = name,
     price = price.toString(),

@@ -17,6 +17,6 @@
 package br.edu.up.rgm34240004.data
 
 /**
- * Repository that provides insert, update, delete, and retrieve of [Item] from a given data source.
+ * Repository that provides insert, update, delete, and retrieve of [ItemEntity] from a given data source.
  */
 interface ItemsRepository
