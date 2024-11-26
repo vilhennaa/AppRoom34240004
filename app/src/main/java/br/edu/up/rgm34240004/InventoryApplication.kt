@@ -14,21 +14,20 @@
  * limitations under the License.
  */
 
-@file:Suppress("UnstableApiUsage")
+package br.edu.up.rgm34240004
 
-pluginManagement {
-    repositories {
-        gradlePluginPortal()
-        google()
-        mavenCentral()
+import android.app.Application
+import br.edu.up.rgm34240004.data.AppDataContainer
+
+class InventoryApplication : Application() {
+
+    /**
+     * AppContainer instance used by the rest of classes to obtain dependencies
+     */
+    lateinit var container: br.edu.up.rgm34240004.data.AppContainer
+
+    override fun onCreate() {
+        super.onCreate()
+        container = br.edu.up.rgm34240004.data.AppDataContainer(this)
     }
 }
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
-rootProject.name = "AppRoom34240004"
-include(":app")

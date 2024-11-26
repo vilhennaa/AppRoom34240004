@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-@file:Suppress("UnstableApiUsage")
+package br.edu.up.rgm34240004.ui.home
 
-pluginManagement {
-    repositories {
-        gradlePluginPortal()
-        google()
-        mavenCentral()
+import androidx.lifecycle.ViewModel
+import br.edu.up.rgm34240004.data.Item
+
+/**
+ * ViewModel to retrieve all items in the Room database.
+ */
+class HomeViewModel : ViewModel() {
+    companion object {
+        private const val TIMEOUT_MILLIS = 5_000L
     }
 }
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
-rootProject.name = "AppRoom34240004"
-include(":app")
+
+/**
+ * Ui State for HomeScreen
+ */
+data class HomeUiState(val itemList: List<Item> = listOf())

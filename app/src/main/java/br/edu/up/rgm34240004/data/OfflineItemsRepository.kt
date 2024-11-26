@@ -14,21 +14,6 @@
  * limitations under the License.
  */
 
-@file:Suppress("UnstableApiUsage")
+package br.edu.up.rgm34240004.data
 
-pluginManagement {
-    repositories {
-        gradlePluginPortal()
-        google()
-        mavenCentral()
-    }
-}
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
-rootProject.name = "AppRoom34240004"
-include(":app")
+class OfflineItemsRepository : ItemsRepository
