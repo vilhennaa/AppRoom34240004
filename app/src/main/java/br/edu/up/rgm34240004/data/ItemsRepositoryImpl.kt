@@ -16,4 +16,60 @@
 
 package br.edu.up.rgm34240004.data
 
-class ItemsRepositoryImpl : ItemsRepository
+import br.edu.up.rgm34240004.domain.Item
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+
+class ItemsRepositoryImpl(
+    private val dao: ItemDao
+) : ItemsRepository {
+
+    override suspend fun insert(
+        name: String,
+        price: Double,
+        quantity: Int,
+        id: Int?
+    ) {
+        val item = id?.let {
+            dao.getItem(it)?.copy(
+                name = name,
+                price = price,
+                quantity = quantity
+            )
+        } ?: ItemEntity(
+            name = name,
+            price = price,
+            quantity = quantity
+        )
+        dao.insert(item)
+    }
+
+    override suspend fun delete(id: Int) {
+        val existingItem = dao.getItem(id) ?: return
+        dao.delete(existingItem)
+    }
+
+    override fun getAllItems(): Flow<List<Item>> {
+        return dao.getAllItems().map { items ->
+            items.map { item ->
+                Item(
+                    id = item.id,
+                    name = item.name,
+                    price = item.price,
+                    quantity = item.quantity
+                )
+            }
+        }
+    }
+
+    override fun getItem(id: Int): Item? {
+        return dao.getItem(id)?.let { item ->
+            Item(
+                id = item.id,
+                name = item.name,
+                price = item.price,
+                quantity = item.quantity
+            )
+        }
+    }
+}

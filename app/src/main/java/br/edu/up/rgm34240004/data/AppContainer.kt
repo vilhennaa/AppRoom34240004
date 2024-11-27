@@ -33,6 +33,6 @@ class AppDataContainer(private val context: Context) : AppContainer {
      * Implementation for [ItemsRepository]
      */
     override val itemsRepository: ItemsRepository by lazy {
-        ItemsRepositoryImpl()
+        ItemsRepositoryImpl(InventoryDatabaseProvider.provide(context).itemDao)
     }
 }

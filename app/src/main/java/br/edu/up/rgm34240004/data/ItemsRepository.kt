@@ -16,7 +16,24 @@
 
 package br.edu.up.rgm34240004.data
 
+import br.edu.up.rgm34240004.domain.Item
+import kotlinx.coroutines.flow.Flow
+
 /**
  * Repository that provides insert, update, delete, and retrieve of [ItemEntity] from a given data source.
  */
-interface ItemsRepository
+interface ItemsRepository{
+
+    suspend fun insert(
+        name: String,
+        price: Double,
+        quantity: Int,
+        id: Int? = null
+    )
+
+    suspend fun delete(id: Int)
+
+    fun getAllItems(): Flow<List<Item>>
+
+    fun getItem(id: Int): Item?
+}
