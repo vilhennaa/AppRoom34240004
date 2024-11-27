@@ -20,13 +20,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import br.edu.up.rgm34240004.data.ItemEntity
+import br.edu.up.rgm34240004.data.Item
+import br.edu.up.rgm34240004.data.ItemsRepository
 import java.text.NumberFormat
 
 /**
  * ViewModel to validate and insert items in the Room database.
  */
-class ItemEntryViewModel : ViewModel() {
+class ItemEntryViewModel(private val itemsRepository: ItemsRepository) : ViewModel() {
 
     /**
      * Holds current item ui state
@@ -41,6 +42,15 @@ class ItemEntryViewModel : ViewModel() {
     fun updateUiState(itemDetails: ItemDetails) {
         itemUiState =
             ItemUiState(itemDetails = itemDetails, isEntryValid = validateInput(itemDetails))
+    }
+
+    /**
+     * Inserts an [Item] in the Room database
+     */
+    suspend fun saveItem() {
+        if (validateInput()) {
+            itemsRepository.insertItem(itemUiState.itemDetails.toItem())
+        }
     }
 
     private fun validateInput(uiState: ItemDetails = itemUiState.itemDetails): Boolean {
@@ -66,33 +76,33 @@ data class ItemDetails(
 )
 
 /**
- * Extension function to convert [ItemDetails] to [ItemEntity]. If the value of [ItemDetails.price] is
+ * Extension function to convert [ItemUiState] to [Item]. If the value of [ItemDetails.price] is
  * not a valid [Double], then the price will be set to 0.0. Similarly if the value of
- * [ItemDetails.quantity] is not a valid [Int], then the quantity will be set to 0
+ * [ItemUiState] is not a valid [Int], then the quantity will be set to 0
  */
-fun ItemDetails.toItem(): ItemEntity = ItemEntity(
+fun ItemDetails.toItem(): Item = Item(
     id = id,
     name = name,
     price = price.toDoubleOrNull() ?: 0.0,
     quantity = quantity.toIntOrNull() ?: 0
 )
 
-fun ItemEntity.formatedPrice(): String {
+fun Item.formatedPrice(): String {
     return NumberFormat.getCurrencyInstance().format(price)
 }
 
 /**
- * Extension function to convert [ItemEntity] to [ItemUiState]
+ * Extension function to convert [Item] to [ItemUiState]
  */
-fun ItemEntity.toItemUiState(isEntryValid: Boolean = false): ItemUiState = ItemUiState(
+fun Item.toItemUiState(isEntryValid: Boolean = false): ItemUiState = ItemUiState(
     itemDetails = this.toItemDetails(),
     isEntryValid = isEntryValid
 )
 
 /**
- * Extension function to convert [ItemEntity] to [ItemDetails]
+ * Extension function to convert [Item] to [ItemDetails]
  */
-fun ItemEntity.toItemDetails(): ItemDetails = ItemDetails(
+fun Item.toItemDetails(): ItemDetails = ItemDetails(
     id = id,
     name = name,
     price = price.toString(),
